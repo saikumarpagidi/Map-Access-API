@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Registration</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Project Registration</h2>
+    <!-- Display success or error messages -->
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+    <span th:text="${errorMessage}"></span>
+</div>
+<div th:if="${successMessage}" class="alert alert-success" role="alert">
+    <span th:text="${successMessage}"></span>
+</div>
+    
+    <!-- Form -->
+    <form action="/projects/register" method="post" th:object="${project}">
+      <div class="mb-3">
+        <label for="projectName" class="form-label">Project Name</label>
+        <input type="text" class="form-control" id="projectName" name="projectName" required>
+      </div>
+      <div class="mb-3">
+        <label for="ipAddress" class="form-label">IP Address</label>
+        <input type="text" class="form-control" id="ipAddress" name="ipAddress" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Register Project</button>
+    </form>
+  </div>
+
+  <!-- JavaScript for validation -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector("form");
+      const projectNameInput = document.getElementById("projectName");
+      const ipAddressInput = document.getElementById("ipAddress");
+
+      form.addEventListener("submit", function (event) {
+        if (projectNameInput.value.trim() === "") {
+          alert("Project Name is required.");
+          event.preventDefault();
+          return;
+        }
+
+        if (ipAddressInput.value.trim() === "") {
+          alert("IP Address is required.");
+          event.preventDefault();
+          return;
+        }
+
+        //const ipRegex = /^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$/;
+       // if (!ipRegex.test(ipAddressInput.value.trim())) {
+         // alert("Invalid IP Address format.");
+          //event.preventDefault();
+          //return;
+        //}
+
+        //alert("Form is valid. Submitting...");
+      });
+    });
+  </script>
+</body>
+</html>

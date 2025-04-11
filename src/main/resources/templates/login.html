@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <section>
+    <form action="/req/login" method="post">
+      <h1>Login</h1>
+      
+      
+        <!-- Display error message if login fails -->
+        <div th:if="${session.error}">
+            <ul class="error-messages">
+                <li th:text="${session.error}"></li>
+            </ul>
+        </div>
+
+      <div class="inputbox">
+        <input name="username" type="text" required />
+        <label for="">Email</label>
+      </div>
+      <div class="inputbox">
+        <input name="password" type="password" required />
+        <label for="">Password</label>
+      </div>
+      <button type="submit">Log in</button>
+      <div class="register">
+       <p>Don't have an account? <a href="/req/signup">Register</a></p>
+       <a href="/forgot-password">Forgot Password?</a>
+       <p>Haven't verified your email? <a href="/verification/resend">Resend Verification Link</a></p>
+       
+      </div>
+    </form>
+  </section>
+  
+  <script>
+    let inactivityTime = 0;
+    const maxInactivityTime = 1 * 60 * 1000; // 1 minute in milliseconds
+
+    // Increment the inactivity timer every 1000ms (1 second)
+    const timer = setInterval(logoutOnInactivity, 1000);
+
+    // Function to logout the user if no activity for 1 minute
+    function logoutOnInactivity() {
+        inactivityTime += 1000; // Increment inactivity time by 1 second
+
+        // If inactivity time exceeds 1 minute, log the user out
+        if (inactivityTime >= maxInactivityTime) {
+            window.location.href = "/req/logout";  // Trigger logout
+        }
+    }
+
+    // Reset the inactivity timer on user activity (mouse movement or key press)
+    document.onmousemove = resetInactivityTimer;
+    document.onkeypress = resetInactivityTimer;
+
+    function resetInactivityTimer() {
+        inactivityTime = 0;  // Reset the inactivity timer
+    }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    /* Custom Styles */
+    .dashboard-container {
+      margin-top: 20px;
+    }
+
+    .card {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card .card-body {
+      flex-grow: 1;
+    }
+
+    .card .btn {
+      margin-top: auto;
+    }
+
+    .footer {
+      background-color: #343a40;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .footer a {
+      color: #ffc107;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer .row {
+      align-items: center;
+    }
+
+    .footer-logo {
+      max-width: 80px;
+    }
+
+    header {
+      background-color: #343a40; /* Same background as footer */
+      color: white;
+    }
+
+    nav a {
+      color: #fff; /* Default color for navbar links */
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline; /* White underline on hover */
+      color: #ffc107; /* Optional: change text color to match footer links */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container-fluid d-flex justify-content-between align-items-center py-2">
+      <h3 class="m-0">Welcome, <span th:text="${user.username}"></span>!</h3>
+      <nav class="d-flex gap-3">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/map">Map Access</a>
+        <a href="/req/payment">Buy Subscription</a>
+        <a href="/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="row mt-4 g-4">
+    <!-- Profile Summary -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Profile Summary</div>
+        <div class="card-body">
+          <p><strong>Institute Name:</strong> <span th:text="${user.institute_name}"></span></p>
+          <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+          <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
+          <p><strong>Department:</strong> <span th:text="${user.department_name}"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subscription Details -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-success text-white">Subscription Status</div>
+        <div class="card-body">
+          <p><strong>Status:</strong> <span th:text="${user.paymentStatus}"></span></p>
+          <p><strong>Start Date:</strong> <span th:text="${user.subscriptionStartDate}"></span></p>
+          <p><strong>End Date:</strong> <span th:text="${user.subscriptionEndDate}"></span></p>
+          <p th:if="${isExpired}" class="text-danger">
+            Your subscription has expired. Please renew it to access the map and other features.
+          </p>
+          <p th:if="${!isExpired}" class="text-warning" id="subscription-expiry-warning">
+            Your subscription is expiring soon (on <span th:text="${formattedEndDate}"></span>). Renew it to continue enjoying the services.
+          </p>
+          <button class="btn btn-warning" onclick="window.location.href='/req/payment'">Buy Subscription</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Access -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-info text-white">Map Access</div>
+        <div class="card-body">
+          <button 
+            id="mapAccessButton" 
+            class="btn btn-primary w-100"
+            th:attr="data-is-paid=${isPaid}" 
+            onclick="handleMapAccess(this)">
+            Access Map
+          </button>
+          <p class="mt-2 text-muted">Only paid users can access the map.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Summary -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">Project Summary</div>
+        <div class="card-body">
+          <p><strong>Total Projects:</strong> <span th:text="${totalProjectsCount}"></span></p> <!-- Display total projects count -->
+          <ul>
+            <li th:each="project : ${projects}">
+              <a th:href="@{/projects/{projectId}(projectId=${project.projectId})}" th:text="${project.projectName}"></a>
+            </li>
+          </ul>
+          <button class="btn btn-success w-100" onclick="window.location.href='/projects/register'">Register New Project</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <img src="/images/cdac-logo.png" alt="CDAC Logo" class="footer-logo" />
+        </div>
+        <div class="col-md-4 text-center">
+          <p>&copy; 2025 C-DAC Noida. All rights reserved.</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <a href="https://www.cdac.in" target="_blank">Visit Our Website</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function handleMapAccess(button) {
+      const isPaid = button.getAttribute("data-is-paid") === "true";
+      if (isPaid) {
+        window.location.href = "/map";
+      } else {
+        alert("Oops! You need to buy a subscription to access the map.");
+        window.location.href = "/req/payment";
+      }
+    }
+
+    // Handle subscription expiration warning using JavaScript
+    const subscriptionWarning = document.querySelector("#subscription-expiry-warning span");
+    if (subscriptionWarning) {
+      const subscriptionEndDate = new Date(subscriptionWarning.textContent);
+      const currentDate = new Date();
+      const daysLeft = (subscriptionEndDate - currentDate) / (1000 * 3600 * 24);
+      if (daysLeft <= 7) {
+        document.getElementById("subscription-expiry-warning").style.display = "block";
+      } else {
+        document.getElementById("subscription-expiry-warning").style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>

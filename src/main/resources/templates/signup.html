@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Form</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/signup.js" defer></script>
+</head>
+<body>
+  <section>
+    <form id="signupForm" novalidate>
+      <h1>Sign Up</h1>
+      
+      <div class="inputbox">
+        <input type="text" id="username" name="username" required>
+        <label for="username">User Name</label>
+        <span class="error-message"></span>
+      </div>
+
+      <div class="inputbox">
+        <input type="text" id="institute_name" name="institute_name" required>
+        <label for="institute_name">Institute Name</label>
+        <span class="error-message"></span>
+      </div>
+     
+      <div class="inputbox">
+        <input type="text" id="department_name" name="department_name" required>
+        <label for="department_name">Department Name</label>
+        <span class="error-message"></span>
+      </div>
+
+      <div class="inputbox">
+        <input type="email" id="email" name="email" required>
+        <label for="email">Email</label>
+        <span class="error-message"></span>
+      </div>
+      
+      <div class="inputbox">
+        <input type="tel" id="phone" name="phone" required>
+        <label for="phone">Mobile No</label>
+        <span class="error-message"></span>
+      </div>
+
+      <div class="inputbox">
+        <input type="password" id="password" name="password" required>
+        <label for="password">Password</label>
+        <span class="error-message"></span>
+      </div>
+
+      <div class="inputbox">
+        <input type="password" id="passwordcon" name="passwordcon" required>
+        <label for="passwordcon">Confirm Password</label>
+        <span class="error-message"></span>
+      </div>
+
+      <button id="submit" type="submit">Sign Up</button>
+      <div class="register">
+        <p>Already have an account? <a href="/req/login">Log In</a></p>
+      </div>
+    </form>
+  </section>
+</body>
+</html>

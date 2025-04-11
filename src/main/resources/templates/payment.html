@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/payment.js" defer></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+
+  <body>
+    <section>
+      <form id="paymentForm" novalidate>
+        <h1>Payment</h1>
+
+        <!-- Username -->
+        <div class="inputbox">
+          <input type="text" id="username" name="username" required />
+          <label for="username">Username</label>
+          <span class="error-message"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="inputbox">
+          <input type="email" id="email" name="email" required />
+          <label for="email">Email</label>
+          <span class="error-message"></span>
+        </div>
+        
+        <!-- Address -->
+        <div class="inputbox">
+          <input type="text" id="address" name="address" required />
+          <label for="address">Address</label>
+          <span class="error-message"></span>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="inputbox" id="dropdown">
+          <label for="plan">Select Subscription Plan</label>
+          <select id="plan" name="plan" required>
+            <option value="" disabled selected>Select Plan</option>
+            <option value="3-months" data-amount="999">3 Months - ₹999</option>
+            <option value="6-months" data-amount="1499">6 Months - ₹1499</option>
+            <option value="1-year" data-amount="2000">1 Year - ₹2000</option>
+          </select>
+          <span class="error-message"></span>
+        </div>
+
+        <!-- Amount Field (Dynamic, Read-Only) -->
+        <div class="inputbox">
+          <input type="text" id="amount" name="amount" value="₹0" disabled />
+          <label for="amount">Amount</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Proceed to Payment</button>
+      </form>
+    </section>
+  </body>
+</html>

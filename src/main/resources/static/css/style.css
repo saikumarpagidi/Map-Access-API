@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Light Facebook-like background */
+}
+
+section {
+  position: relative;
+  max-width: 500px;
+  background-color: #fff; /* White background for the card */
+  border-radius: 10px; /* Slightly rounded corners */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 3rem;
+  transition: all 0.5s ease-in-out;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #1877f2; /* Facebook blue for the heading */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.inputbox {
+  position: relative;
+  margin: 20px 0;
+  width: 100%; /* Full width input boxes */
+  transition: all 0.5s ease-in-out;
+}
+
+.inputbox input {
+  width: 100%;
+  height: 40px;
+  background: #f0f2f5; /* Slightly off-white background */
+  border: none; /* Removed borders */
+  border-radius: 5px; /* Rounded corners */
+  outline: none;
+  font-size: 1rem;
+  padding: 0 15px;
+  color: #000; /* Black text for readability */
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+}
+
+.inputbox ion-icon {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  color: #bbb; /* Light gray for icon */
+  font-size: 1.2rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.inputbox label {
+  position: absolute;
+  top: -8px;
+  left: 15px;
+  color: #1877f2; /* Facebook blue for labels */
+  font-size: 0.9rem;
+  pointer-events: none;
+  background-color: #fff; /* Matches input background */
+  padding: 0 5px;
+  transition: all 0.5s ease-in-out;
+}
+
+button {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px; /* Rounded corners for buttons */
+  background-color: #1877f2; /* Facebook blue */
+  border: none; /* Removed borders */
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff; /* White text for contrast */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Button shadow */
+  transition: all 0.4s ease;
+}
+
+button:hover {
+  background-color: #1463d9; /* Slightly darker blue on hover */
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.register {
+  font-size: 0.9rem;
+  color: #1877f2; /* Facebook blue for text */
+  text-align: center;
+  margin: 25px 0 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.register p a {
+  text-decoration: none;
+  color: #1877f2; /* Blue links */
+  font-weight: 600;
+  transition: all 0.5s ease-in-out;
+}
+
+.register p a:hover {
+  text-decoration: underline;
+  color: #1463d9; /* Slightly darker blue on hover */
+}
+
+.error-message {
+  color: red; /* Red for error messages */
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+.inputbox input.error {
+  color: red; /* Error text in red */
+  background: #ffe6e6; /* Light red background for error indication */
+}
+
+.inputbox input::placeholder {
+  color: red; /* Placeholder text in red for errors */
+  font-style: italic; /* Italicize error messages for emphasis */
+}
+/* Style for the dropdown container */
+.inputbox select {
+  width: 100%; /* Full width to match other inputs */
+  height: 40px; /* Same height as input fields */
+  background: #f0f2f5; /* Match the input field background */
+  border: none; /* Remove default borders */
+  border-radius: 5px; /* Rounded corners to match other inputs */
+  font-size: 1rem; /* Consistent font size */
+  padding: 0 10px; /* Padding for spacing */
+  color: #000; /* Text color for readability */
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+  appearance: none; /* Remove default dropdown arrow for customization */
+}
+
+/* Add some space to avoid overlapping */
+.inputbox label[for="plan"] {
+  margin-bottom: 5px; /* Space below the label */
+  display: inline-block; /* Ensure label is above the select element */
+  font-size: 0.9rem; /* Slightly smaller text for labels */
+  color: #1877f2; /* Match label color to existing theme */
+}
+
+/* Dropdown hover and focus styles */
+.inputbox select:focus {
+  outline: 2px solid #1877f2; /* Blue outline for focus */
+}
+
+.inputbox select:hover {
+  background: #e8eaf6; /* Slightly lighter background on hover */
+}
+
+/* Dropdown arrow styling */
+.inputbox select::-ms-expand {
+  display: none; /* Hide default arrow in IE */
+}
+
+.inputbox {
+  position: relative;
+}
+
+/* Custom dropdown arrow */
+.inputbox:after {
+  position: absolute;
+  right: 15px; /* Positioning for arrow */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure arrow doesn't block clicks */
+  color: #bbb; /* Light gray for arrow */
+  font-size: 1rem; /* Adjust size */
+}
+.dropdown{
+	  content: "▼"; /* Unicode for arrow */
+}
+
+.error-messages {
+  color: red;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.error-messages li {
+  margin-bottom: 5px;
+}
